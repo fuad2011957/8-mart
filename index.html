@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>С 8 Марта!</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5b7d6, #a29bfe);
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            overflow: hidden;
+            color: #333;
+            position: relative;
+        }
+    
+        .hidden {
+            display: none;
+        }
+
+        #input-container {
+            background: #ffffff;
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            transform: scale(0.9);
+            animation: fadeIn 0.5s forwards ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            0% { transform: scale(0.5); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        h2 {
+            color: #6c5ce7;
+            font-size: 1.4em;
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.2em;
+            border-radius: 50px;
+            border: 2px solid #6c5ce7;
+            background: #f1f2f6;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 15px;
+            font-size: 1.2em;
+            background: #6c5ce7;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            width: 100%;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #a29bfe;
+        }
+
+        h1 {
+            color: #fff;
+            font-size: 2.5em;
+            font-weight: 600;
+        }
+
+        #message {
+            color: #fff;
+            font-size: 1.4em;
+            font-weight: bold;
+        }
+
+        #flower-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .flower {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            opacity: 0.9;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-40px) rotate(180deg); }
+            100% { transform: translateY(0) rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <audio id="bg-music" loop>
+        <source src="https://www.bensound.com/bensound-music/bensound-sunny.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="input-container">
+        <h2>Введите ваше имя:</h2>
+        <input type="text" id="nameInput" placeholder="Ваше имя">
+        <button onclick="showGreeting()">ОК</button>
+    </div>
+
+
+
+    <div id="greeting-container" class="hidden">
+        <h1 id="greeting">🎉 С 8 Марта!</h1>
+        <p id="message">Пусть этот день будет полон счастья и радости! 🌷✨</p>
+        <button id="surprise">🌸 Нажми меня!</button>
+        <div id="flower-container"></div>
+        
+        
+    </div>
+
+    <script>
+        function showGreeting() {
+            let userName = document.getElementById("nameInput").value.trim();
+            if (!userName) {
+                alert("Пожалуйста, введите имя!");
+                return;
+            }
+
+            document.getElementById("greeting").innerText = `🌷 С 8 Марта, ${userName}! 💖`;
+            document.getElementById("input-container").classList.add("hidden");
+            document.getElementById("greeting-container").classList.remove("hidden");
+
+            document.getElementById("bg-music").play();
+        }
+
+        document.getElementById("surprise").addEventListener("click", function () {
+            launchFlowers();
+        });
+
+        function launchFlowers() {
+            const container = document.getElementById("flower-container");
+            for (let i = 0; i < 20; i++) {
+                let flower = document.createElement("img");
+                flower.src = "https://cdn-icons-png.flaticon.com/128/3448/3448517.png";
+                flower.className = "flower";
+                flower.style.left = Math.random() * window.innerWidth + "px";
+                flower.style.top = Math.random() * window.innerHeight + "px";
+                container.appendChild(flower);
+                setTimeout(() => { flower.remove(); }, 5000000);
+            }
+        }
+    </script>
+</body>
+</html>
